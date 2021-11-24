@@ -4,7 +4,7 @@ import InheritanceDemo.Animal;
 import InheritanceDemo.AnimalType;
 import InheritanceDemo.Dog;
 
-public class OopDemo {
+public class OopDemo2 {
     public static void main(String[] args) throws IOException{
         Animal animal = new Animal();
         animal.produceSound();
