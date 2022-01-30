@@ -12,7 +12,7 @@ public class Client {
         Socket socket = new Socket("192.168.0.96",5000);
         OutputStream outputStream = socket.getOutputStream();
 
-        BufferedImage image = ImageIO.read(new File("C:\\Users\\pacis\\Pictures\\Saved Pictures\\IMG-20211123-WA0001 (2).jpg"));
+        BufferedImage image = ImageIO.read(new File(""));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image,"jpg",byteArrayOutputStream);
         byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
