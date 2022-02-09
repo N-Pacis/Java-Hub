@@ -15,7 +15,6 @@ public class Server {
             String clientRequest = new String(buffer,0, dpRequest.getLength());
             System.out.println(clientRequest);
 
-            //sending back response
             InetAddress ip = dpRequest.getAddress();
             int clientPort = dpRequest.getPort();
             String responseToClient = "Received request";
