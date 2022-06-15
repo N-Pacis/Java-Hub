@@ -23,6 +23,11 @@
                 <td><c:out value="${student.firstname}"/></td>
                 <td><c:out value="${student.lastname}"/></td>
                 <td><c:out value="${student.yearEnrolled}"/></td>
+                <td>
+                    <a href="edit?id=<c:out value='${student.id}' />">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="delete?id=<c:out value='${student.id}' />">Delete</a>
+                </td>
             </tr>
         </c:forEach>
     </tbody>

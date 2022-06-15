@@ -10,6 +10,8 @@ public interface StudentService {
 
     List<Student> listAllStudents();
 
+    Student getStudentById(Long id);
+
     boolean deleteStudent(Long id) throws SQLException;
-    void updteStudent();
+    void updateStudent(Student student);
 }

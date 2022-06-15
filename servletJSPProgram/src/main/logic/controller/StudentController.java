@@ -24,15 +24,22 @@ public class StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
-        System.out.println(action);
         try{
             switch (action){
                 case "/new":
                     studentRegistrationForm(request,response);
                     break;
                 case "/insert":
-                    System.out.println("here");
                     insertStudent(request,response);
+                    break;
+                case "/delete":
+                    deleteStudent(request,response);
+                    break;
+                case "/edit":
+                    studentEditForm(request,response);
+                    break;
+                case "/update":
+                    updateStudent(request,response);
                     break;
                 default:
                     listStudents(request,response);
@@ -56,6 +63,14 @@ public class StudentController extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
+    private void studentEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.valueOf(Integer.parseInt(request.getParameter("id")));
+        Student student = studentService.getStudentById(id);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("student/add-student.jsp");
+        request.setAttribute("student",student);
+        requestDispatcher.forward(request,response);
+    }
+
     private void insertStudent(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -63,6 +78,24 @@ public class StudentController extends HttpServlet {
 
         Student student = new Student(firstname,lastname,yearEnrolled);
         studentService.addStudent(student);
+        response.sendRedirect("list");
+    }
+
+    private void updateStudent(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
+        Long id = Long.valueOf(request.getParameter("id"));
+
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String yearEnrolled = request.getParameter("yearEnrolled");
+
+        Student student = new Student(id,firstname,lastname,yearEnrolled);
+        studentService.updateStudent(student);
+        response.sendRedirect("list");
+    }
+
+    private void deleteStudent(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
+        Long id = Long.valueOf(request.getParameter("id"));
+        studentService.deleteStudent(id);
         response.sendRedirect("list");
     }
 }
