@@ -3,18 +3,17 @@ package edu.school.student;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import edu.school.student.DAO.StudentDao;
 import edu.school.student.models.Student;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
-@WebServlet("/")
-public class StudentServlet extends HttpServlet {
-
+@WebServlet(name = "Students",value = "/")
+public class  StudentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDao studentDao;
 
@@ -60,7 +59,7 @@ public class StudentServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<Student> listStudent = studentDao.listAllStudents();
         request.setAttribute("listStudent", listStudent);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("students.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("studentList.jsp");
         dispatcher.forward(request, response);
     }
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)

@@ -37,7 +37,7 @@ public class StudentDao {
         }
     }
     public boolean insertStudent(Student student) throws SQLException {
-        String sql = "INSERT INTO student (first_name, last_name, gender) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO students (firstname, lastname, gender) VALUES (?, ?, ?)";
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, student.getFirstname());
@@ -50,7 +50,7 @@ public class StudentDao {
     }
 
     public boolean insertStudentHbnt(Student student) throws SQLException {
-        String sql = "INSERT INTO student (first_name, last_name, gender) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO students (firstname, lastname, gender) VALUES (?, ?, ?)";
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, student.getFirstname());
@@ -63,14 +63,14 @@ public class StudentDao {
     }
     public List<Student> listAllStudents() throws SQLException {
         List<Student> listStudent = new ArrayList<Student>();
-        String sql = "SELECT * FROM student";
+        String sql = "SELECT * FROM students";
         connect();
         Statement statement = jdbcConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
             Long id = resultSet.getLong("id");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
+            String firstName = resultSet.getString("firstname");
+            String lastName = resultSet.getString("lastname");
             String gender = resultSet.getString("gender");
             Student Student = new Student(id, firstName, lastName, gender);
             listStudent.add(Student);
@@ -81,7 +81,7 @@ public class StudentDao {
         return listStudent;
     }
     public boolean deleteStudent(Student student) throws SQLException {
-        String sql = "DELETE FROM student where id = ?";
+        String sql = "DELETE FROM students where id = ?";
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, student.getId().intValue());
@@ -91,7 +91,7 @@ public class StudentDao {
         return rowDeleted;
     }
     public boolean updateStudent(Student Student) throws SQLException {
-        String sql = "UPDATE student SET first_name = ?, last_name = ?, gender = ?";
+        String sql = "UPDATE students SET firstname = ?, lastname = ?, gender = ?";
         sql += " WHERE id = ?";
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class StudentDao {
     }
     public Student getStudent(Student sst) throws SQLException {
         Student student = null;
-        String sql = "SELECT * FROM student WHERE id = ?";
+        String sql = "SELECT * FROM students WHERE id = ?";
         connect();
         int stdId = sst.getId().intValue();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -114,8 +114,8 @@ public class StudentDao {
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
 
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
+            String firstName = resultSet.getString("firstname");
+            String lastName = resultSet.getString("lastname");
             String gender = resultSet.getString("gender");
             student = new Student(new Long(stdId), firstName, lastName, gender);
         }
